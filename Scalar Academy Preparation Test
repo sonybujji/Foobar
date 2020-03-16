@@ -1,0 +1,112 @@
+5. Conditional Swaps to sort an array:
+Input: 
+  1 2 5 3 4 6
+  01010
+NO
+  1 2 5 3 4 6
+  01110
+YES
+
+string Solution::solve(int A, vector<int> &B, string C) {
+    int max_element = -1; 
+    for (int i = 0; i < B.size(); i++) { 
+        max_element = max(max_element, B[i]); 
+        if (C[i] == '0') { 
+            if (max_element > i + 1) 
+                return "NO"; 
+        } 
+    } 
+    return "YES"; 
+}
+
+4. Non Overlapping Substrings:
+ABA : NO
+ABCFGBA :YES
+string Solution::solve(string A) {
+    int n = A.length();
+    char *p;
+    char char_array[n + 1]; 
+    strcpy(char_array, A.c_str()); 
+  
+    string y="YES", x="NO";
+  
+    if ((p = strstr(char_array, "AB")) && (strstr(p + 2, "BA"))||(p = strstr(char_array, "BA")) && (strstr(p + 2, "AB"))) 
+        return y; 
+  
+    return x; 
+}
+
+3. Highest Product:
+
+0, -1, 3, 100, 70, 50 : 70*50*100 = 350000
+
+int Solution::maxp3(vector<int> &A) {
+    int n=A.size();
+    sort(A.begin(),A.end());
+    int ans=max(A[0]*A[1]*A[n-1],A[n-3]*A[n-2]*A[n-1]);
+    return ans;
+}
+
+2. Longest Common Prefix:
+i/p: abcdefg   abcefg  abcvghj
+     abab      ab      abcd
+o/p: abc
+     ab
+
+string Solution::longestCommonPrefix(vector<string> &A) {
+    int minlen = A[0].size(); 
+    int n=A.size();
+    for (int i=1; i<n; i++) 
+        if (A[i].size() < minlen) 
+            minlen = A[i].size(); 
+  
+    string result; 
+    char current;  
+  
+    for (int i=0; i<minlen; i++) 
+    { 
+        current = A[0][i]; 
+        for (int j=1 ; j<n; j++) 
+            if (A[j][i] != current) 
+                return result; 
+  
+        result.push_back(current); 
+    } 
+  
+    return (result); 
+}
+
+1. Remove Duplicates from Sorted List:
+i/p:
+1->1->2
+1->2->2->3
+o/p:
+1->2
+1->2->3
+
+ListNode* Solution::deleteDuplicates(ListNode* A) {
+    ListNode* current = A;  
+    ListNode* same;  
+     
+    if (current == NULL)  
+    return NULL;  
+    
+    while (current->next != NULL)  
+    {  
+    if (current->val == current->next->val)  
+    {  
+        same = current->next->next;  
+        free(current->next);  
+        current->next = same;  
+    }  
+    else
+    {  
+        current = current->next;  
+    }  
+    } 
+    return A;
+}
+
+
+
+
